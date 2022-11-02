@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en" class="h-100">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.104.2">
+    <title>Cover Template · Bootstrap v5.2</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/cover/">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href="{{ url_for('static', filename='cover.css') }}" rel="stylesheet">
+</head>
+<body class="container-md h-100 text-center text-bg-dark">
+
+<div class="container-md d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <header class="mb-auto">
+        <div>
+            <h3 class="float-md-start mb-0">FPV - Wspomagacz zakupowy</h3>
+<!--            <nav class="nav nav-masthead justify-content-center float-md-end">-->
+<!--                <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="#">Home</a>-->
+<!--                <a class="nav-link fw-bold py-1 px-0" href="#">Features</a>-->
+<!--                <a class="nav-link fw-bold py-1 px-0" href="#">Contact</a>-->
+<!--            </nav>-->
+        </div>
+    </header>
+
+    <div class="container px-3" style="width: 500px" >
+        <h1>Czego szukasz?</h1>
+        <form action="/search" method="get">
+            <div class="form-group">
+                <input type="text" class="form-control input-sm" id="phrase" name="phrase" placeholder="Silnik">
+                <button type="submit" class="btn btn-primary mb-2">Szukaj</button>
+            </div>
+        </form>
+
+    </div>
+    <div>
+        {% if results %}
+        <table class="table table-dark table-striped ">
+            <thead>
+            <tr>
+                <th scope="col">Kategoria</th>
+                <th scope="col">Nazwa</th>
+                <th scope="col">Cena</th>
+                <th scope="col">Link</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for r in results %}
+            <tr>
+                <td>{{ r.category }}</td>
+                <td>{{ r.name }}</td>
+                <td>{{ "%.2f PLN"|format(r.price) }}</td>
+                <td><a href="{{ r.url }}">Do sklepu</a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+
+    </div>
+
+
+
+    <footer class="mt-auto text-white-50">
+        <p>Bring to you with love by <a href="https://github.com/kirek007">Kirek</a></p>
+    </footer>
+</div>
+
+
+
+</body>
+</html>

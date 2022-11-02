@@ -1,11 +1,29 @@
 version: '3.1'
 services:
+  scrapy:
+    build:
+      context: fpv_products
+    restart: always
+    environment:
+      MONGODB_SERVER: "mongodb://marek:abrakadabra12@mongo:27017/"
+      MONGODB_DB: "fpvScrapper"
+      MONGODB_COLLECTION: "products"
 
+  front:
+    build:
+      context: site
+    restart: always
+    environment:
+      FLASK_MONGO_URI: mongodb://marek:abrakadabra12@mongo:27017/fpvScrapper?authSource=admin
+    ports:
+      - "8080:8000"
   mongo:
     image: mongo:6.0.2
     restart: always
     ports:
       - "27017:27017"
+    volumes:
+      - "./container-data/mongo-data:/data/db"
     environment:
       MONGO_INITDB_ROOT_USERNAME: marek
       MONGO_INITDB_ROOT_PASSWORD: abrakadabra12
