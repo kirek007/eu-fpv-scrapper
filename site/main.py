@@ -28,7 +28,7 @@ def home_results():
     things = mongo.db.products.find(
         {"can_buy": True, "name": regx},
         {"_id": False, "name": True, "price": True, "url": True, "category": True}
-    ).sort("price", pymongo.ASCENDING)
+    ).sort("price", pymongo.ASCENDING).limit(30)
     res = json.loads(json_util.dumps(things))
 
     return render_template("index.html", results=res)
