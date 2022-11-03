@@ -14,11 +14,12 @@
 
       gtag('config', 'G-RGTDFMX979');
     </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/cover/">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link href="{{ url_for('static', filename='cover.css') }}" rel="stylesheet">
 </head>
-<body class="container-md h-100 text-center text-bg-dark">
+<body class="container-md h-100 text-bg-dark">
 
 <div class="container-md d-flex w-100 h-100 p-3 mx-auto flex-column">
     <header class="mb-auto">
@@ -32,34 +33,49 @@
         </div>
     </header>
 
-    <div class="container px-3" style="width: 500px" >
+    <div style="width: 500px" class="text-center container p-3">
         <h1>Czego szukasz?</h1>
-        <form action="/search" method="get">
-            <div class="form-group">
-                <input type="text" class="form-control input-sm" id="phrase" name="phrase" placeholder="Silnik">
-                <button type="submit" class="btn btn-primary mb-2">Szukaj</button>
-            </div>
-        </form>
-
     </div>
+    <div style="width: 500px" class="container p-3">
+        <form action="/search" method="get">
+            <div class="mb-3">
+                <input type="text" class="form-control" id="phrase" name="phrase" value="{{ phrase }}">
+                <div id="emailHelp" class="form-text">Wyświetlne zostaną tylko produkty dostępne. Stany są odświeżane co okolo 12h</div>
+                <input type="checkbox" class="form-check-input" id="smart" name="smart" value="{{ smart }}" {% if smart %}checked{% endif %}>
+                <label class="form-check-label" for="smart">
+                    Sprytne wyszkiwanie <i class="bi bi-info-circle"  data-toggle="tooltip" data-placement="right" title="Użyj jeśli nie możesz znaleźć produktu, jednak wyniki nie będą posortowane po cenie"></i>
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary">Szukaj</button>
+        </form>
+    </div>
+
     <div>
         {% if results %}
         <table class="table table-dark table-striped ">
             <thead>
             <tr>
+                <th scope="col">Sklep</th>
                 <th scope="col">Kategoria</th>
                 <th scope="col">Nazwa</th>
                 <th scope="col">Cena</th>
                 <th scope="col">Link</th>
+                {% if debug %}
+                <th scope="col">Score</th>
+                {% endif %}
             </tr>
             </thead>
             <tbody>
             {% for r in results %}
             <tr>
+                <td>{{ r.shop }}</td>
                 <td>{{ r.category }}</td>
                 <td>{{ r.name }}</td>
                 <td>{{ "%.2f PLN"|format(r.price) }}</td>
-                <td><a href="{{ r.url }}">Do sklepu</a></td>
+                <td><a href="{{ r.url }}" target="_blank">Do sklepu</a></td>
+                {% if debug %}
+                <th scope="col">{{ r.score }}</th>
+                {% endif %}
             </tr>
             {% endfor %}
             </tbody>
@@ -70,12 +86,14 @@
 
 
 
-    <footer class="mt-auto text-white-50">
+    <footer class="mt-auto text-white-50 text-center">
         <p>Bring to you with love by <a href="https://github.com/kirek007">Kirek</a></p>
     </footer>
 </div>
-
-
-
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
 </body>
 </html>
