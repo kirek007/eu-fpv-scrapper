@@ -1,4 +1,5 @@
 import json
+import os
 import re
 
 
@@ -11,9 +12,7 @@ from flask_pymongo import PyMongo
 app = Flask(__name__)
 app.config.from_prefixed_env()
 
-mongoUrl = app.config.from_envvar('MONGO_URL', True)
-
-app.config["MONGO_URI"] = mongoUrl if mongoUrl else "mongodb://marek:abrakadabra12@127.0.0.1:27017/fpvScrapper?authSource=admin"
+app.config["MONGO_URI"] = os.getenv('MONGO_URL', "mongodb://marek:abrakadabra12@127.0.0.1:27017/fpvScrapper?authSource=admin")
 # app.config['TEMPLATES_AUTO_RELOAD'] = True
 mongo = PyMongo(app)
 api = Api(app)
