@@ -27,10 +27,13 @@ class ShoperSpider(scrapy.Spider):
     def parse_products(self, response, **kwargs):
         resp = response.json()
         list = resp["list"]
+        url = response.request.url
+        url_parts = urllib.parse.urlparse(url)
 
         for product in list:
             item = FpvItem()
             item["name"] = product["name"]
+            item["shop"] = url_parts.netloc
             item["price"] = product["price"]["gross"]["base_float"]
             item["url"] = product["url"]
             item["can_buy"] = product["can_buy"]
@@ -41,8 +44,7 @@ class ShoperSpider(scrapy.Spider):
 
         # Next page?
 
-        url = response.request.url
-        url_parts = urllib.parse.urlparse(url)
+
         query = dict(urllib.parse.parse_qsl(url_parts.query))
         current_page = int(query["page"])
         pages = int(resp["pages"])
