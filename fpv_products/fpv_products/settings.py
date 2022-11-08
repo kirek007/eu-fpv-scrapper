@@ -12,7 +12,7 @@ BOT_NAME = 'fpv_products'
 SPIDER_MODULES = ['fpv_products.spiders']
 NEWSPIDER_MODULE = 'fpv_products.spiders'
 
-
+DUPEFILTER_CLASS = 'scrapy.dupefilters.RFPDupeFilter'
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'fpv_products (+http://www.yourdomain.com)'
 

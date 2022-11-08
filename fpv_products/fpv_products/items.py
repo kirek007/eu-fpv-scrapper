@@ -17,5 +17,6 @@ class FpvItem(scrapy.Item):
     producer = scrapy.Field()
     url = scrapy.Field()
     price = scrapy.Field()
+    image = scrapy.Field()
 
     pass
