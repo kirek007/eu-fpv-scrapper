@@ -13,6 +13,7 @@ class FpvItem(scrapy.Item):
     name = scrapy.Field()
     can_buy = scrapy.Field()
     category = scrapy.Field()
+    category_id = scrapy.Field()
     producer = scrapy.Field()
     url = scrapy.Field()
     price = scrapy.Field()
