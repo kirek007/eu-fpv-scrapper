@@ -55,6 +55,7 @@
         <table class="table table-dark table-striped ">
             <thead>
             <tr>
+                <th scope="col"></th>
                 <th scope="col">Sklep</th>
                 <th scope="col">Kategoria</th>
                 <th scope="col">Nazwa</th>
@@ -68,6 +69,9 @@
             <tbody>
             {% for r in results %}
             <tr>
+                <td>
+                    <img src="{{ r.image }}" />
+                </td>
                 <td>{{ r.shop }}</td>
                 <td>{{ r.category }}</td>
                 <td>{{ r.name }}</td>
