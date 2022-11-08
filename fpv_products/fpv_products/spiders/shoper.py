@@ -5,7 +5,7 @@ from fpv_products.items import FpvItem
 
 
 class ShoperSpider(scrapy.Spider):
-    name = 'shoper_2'
+    name = 'shoper'
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -66,6 +66,7 @@ class ShoperSpider(scrapy.Spider):
             item["category"] = product["category"]["name"]
             item["category_id"] = product["category"]["id"]
             item["producer"] = product["producer"]["name"] if "producer" in product else "None"
+            item["image"] = "https://%s/environment/cache/images/120_120_productGfx_%s.jpg" % (url_parts.netloc, product["main_image"])
 
             yield item
 
