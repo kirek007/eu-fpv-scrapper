@@ -21,14 +21,14 @@ services:
     restart: always
     labels:
       - traefik.enable=true
-      - traefik.http.routers.fpv.rule=Host(`fpv.ruszczyk.eu`)
+      - traefik.http.routers.fpv.rule=Host(`droneparts.me`)
       - traefik.http.services.fpv.loadbalancer.server.port=8000
     environment:
       MONGO_URL: mongodb://marek:abrakadabra12@mongo:27017/fpvScrapper?authSource=admin
     ports:
       - "8080:8000"
   mongo:
-    image: mongo:6.0.2
+    image: mongo:4
     restart: always
     ports:
       - "27017:27017"
